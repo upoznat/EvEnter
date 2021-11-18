@@ -1,0 +1,106 @@
+spring:
+  application:
+    name: payment-service
+  jmx:
+    default-domain: ${spring.application.name}
+server:
+  servlet:
+    context-path: /${spring.application.name}
+   
+management:
+  endpoints:
+    jmx:
+      domain: ${spring.application.name}
+eureka:
+  instance:
+    metadata-map:
+      management:
+        context-path: ${spring.application.name}       
+  host: 192.168.182.111
+  port: 8761
+    
+
+    
+---
+spring:
+  profiles: development
+
+  cloud:
+    config{}}
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVICE
+
+      username: service
+      password: service!
+      fail-fast: true
+
+      retry:
+        initialInterval: 5000
+        maxAttempts: 2
+        maxInterval: 5000
+        multiplier: 1.0
+       
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://192.168.182.111:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    
+logging:
+  file: C:/logs1
+
+---
+spring:
+  profiles: production
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVICE
+
+      username: service
+      
+      fail-fast: true
+
+      retry:
+        initialInterval: 5000
+        maxAttempts: 2
+        maxInterval: 5000
+        multiplier: 1.0
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${eureka.host1}:${eureka.port}/eureka/,http://${eureka.host2}:${eureka.port}/eureka/
+
+  instance:
+    health-check-url-path: /${spring.application.name}/health
+    metadata-map:
+      management.context-path: ${spring.application.name}
+    hostname: ${service.host}
+    ip-address: ${service.host}
+    instance-id: ${service.host}:${spring.application.name}:${server.port}
+
+#logbook:
+#  exclude:
+#    - '/**/healthcheck'
+#    - '/**/health'
+#    - '/**/info'
+#  filter.enabled: true
+#  format.style: http
+#  obfuscate:
+#    headers:
+#      - Authorization
+#      - X-Secret
+#    parameters:
+#      - access_token
+#      - password
+#  write:
+#    category: http.rest
+#    level: INFO
+#    max-body-size: 4096  

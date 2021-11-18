@@ -1,0 +1,8 @@
+spring:
+  activemq:
+    broker-url: failover:(tcp://localhost:61616)
+      username: sum
+      password: sum
+      initial-redelivery-delay: 60000
+      redelivery-delay: 30000
+      maximum-redeliveries: -1

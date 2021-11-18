@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.paymentservice.dao.mapper.PaymentTransactionMapper">
+
+    <resultMap type="PaymentTransaction" id="paymentTransaction">
+        <result property="id" column="id" />
+        <result property="dateCreated" column="date_created" />
+        <result property="dateModified" column="date_modified" />
+        <result property="user.id" column="user_id" />
+        <result property="paymentType" column="payment_type" />
+        <result property="provider" column="provider" />
+        <result property="paymentStatus" column="payment_status" />
+        <result property="uuid" column="uuid" />
+    </resultMap>
+
+
+    <insert id="savePaymentTransaction" parameterType="PaymentTransaction">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select
+            seq_payment_transactions.nextval from dual
+        </selectKey>
+        insert into payment_transaction
+        (id, date_created, date_modified, user_id, payment_type, provider,
+        payment_status, uuid)
+        values
+        (#{id}, #{dateCreated}, #{dateModified}, #{user.id}, #{paymentType},
+        #{provider}, #{paymentStatus}, #{uuid})
+    </insert>
+
+    <update id="updateTransaction" parameterType="PaymentTransaction">
+        update payment_transaction
+        set date_modified = #{dateModified},
+            payment_status = #{paymentStatus}
+
+        where id = #{id}
+    </update>
+
+
+    <select id="findPaymentTransaction" parameterType="CreatePaymentTransactionRequest" resultMap="paymentTransaction">
+        select * from payment_transaction
+        where user_id = #{userId}
+          and uuid = #{uuid}
+    </select>
+
+</mapper>

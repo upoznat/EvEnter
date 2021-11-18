@@ -1,0 +1,57 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: version 1.0
+      author: poznanuros@gmail.com
+
+      tagDatabase:
+        tag: 1.0
+
+  - changeSet:
+      id: initial
+      author: poznanuros@gmail.com
+      changes:
+        - comment: Initial database schema
+          strip-comments: true
+          sql: |
+
+                create sequence seq_payment_transactions start with 1 increment by 1;
+                create sequence seq_payment_trans_details start with 1 increment by 1;
+
+                create table user (
+                id number not null,
+                username varchar(20),
+                identity_number varchar(20),
+                CONSTRAINT PK_player PRIMARY KEY (id)
+                );
+
+                comment on column user.id is 'Jedinstveni id korisnika u sistemu';
+                comment on column user.username is 'Username korisnika';
+                comment on column user.identity_number is 'JMBG korisnika';
+
+                CREATE TABLE payment_transaction
+                (
+                id INTEGER NOT NULL,
+                date_created timestamp,
+                date_modified timestamp,
+                user_id number not null,
+                payment_type varchar(20) not null,
+                provider varchar(30) not null,
+                payment_status varchar(20) not null,
+                uuid varchar(20),
+
+                CONSTRAINT PK_payment_transaction PRIMARY KEY (id),
+                constraint fk_user_id FOREIGN key(user_id) references user(id)
+                );
+
+                comment on column payment_transaction.id is 'Jedinstveni id zahteva';
+                comment on column payment_transaction.date_created is 'Datum incijalnog snimanja zahteva';
+                comment on column payment_transaction.date_modified is 'Datum poslednje izmene';
+                comment on column payment_transaction.user_id is 'Jednstveni identifikator korisnika u sistemu';
+                comment on column payment_transaction.payment_type is 'Tip ' uplata, isplata, rezervacija';
+                comment on column payment_transaction.provider is 'Naziv providera preko koga je pritigao zahtev za uplatu';
+                comment on column payment_transaction.payment_status is 'Status transakcije';
+
+
+
+
