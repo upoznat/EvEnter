@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+    <typeAliases>
+        <package name="com.eventer.paymentservice.dto"/>
+        <package name="com.eventer.paymentservice.domain"/>
+    </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="com.eventer.paymentservice.domain.PaymentType"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="com.eventer.paymentservice.domain.PaymentStatus"/>
+    </typeHandlers>
+    <mappers>
+        <mapper resource="db/com.eventer.paymentservice.dao.mapper/PaymentTransactionMapper.xml"/>
+        <mapper resource="db/com.eventer.paymentservice.dao.mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>

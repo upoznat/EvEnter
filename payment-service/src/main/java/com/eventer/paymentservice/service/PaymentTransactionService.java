@@ -7,6 +7,7 @@ import com.eventer.paymentservice.domain.PaymentTransaction;
 import com.eventer.paymentservice.domain.PaymentType;
 import com.eventer.paymentservice.domain.User;
 import com.eventer.paymentservice.dto.ExternalPaymentRequestDTO;
+import com.eventer.paymentservice.dto.PaymentResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,6 @@ public class PaymentTransactionService {
 
     @Autowired
     UserMapper userMapper;
-
 
 
     /**
@@ -60,6 +60,23 @@ public class PaymentTransactionService {
 
         paymentTransactionMapper.savePaymentTransaction(paymentRequest);
     }
+
+
+    @Transactional
+    public void updateTransactionStatus(PaymentResponseDTO paymentResponse) {
+
+        PaymentTransaction pmt = PaymentTransaction
+                .builder()
+                .paymentStatus(paymentResponse.getStatus())
+                .dateModified(Instant.now())
+                .build();
+
+        int numOfUpdated = paymentTransactionMapper.updateTransaction(pmt);
+
+        log.info("Broj update-ovanih transakcija iz statusa AssignedForTomorrow u Assigned: {}", numOfUpdated);
+    }
+
+
 }
 
 

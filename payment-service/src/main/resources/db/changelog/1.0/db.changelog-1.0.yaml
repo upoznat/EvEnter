@@ -48,7 +48,7 @@ databaseChangeLog:
                 comment on column payment_transaction.date_created is 'Datum incijalnog snimanja zahteva';
                 comment on column payment_transaction.date_modified is 'Datum poslednje izmene';
                 comment on column payment_transaction.user_id is 'Jednstveni identifikator korisnika u sistemu';
-                comment on column payment_transaction.payment_type is 'Tip ' uplata, isplata, rezervacija';
+                comment on column payment_transaction.payment_type is 'Tip uplata, isplata, rezervacija';
                 comment on column payment_transaction.provider is 'Naziv providera preko koga je pritigao zahtev za uplatu';
                 comment on column payment_transaction.payment_status is 'Status transakcije';
 

@@ -4,7 +4,6 @@ import com.eventer.paymentservice.dao.mapper.UserMapper;
 import com.eventer.paymentservice.domain.User;
 import com.eventer.paymentservice.dto.UserInfoDTO;
 import com.eventer.paymentservice.exception.PaymentTransactionProcessingException;
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,66 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
-<configuration scan="true">
+<configuration>
 
 	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-	
-	<springProperty scope="context" name="app.name" source="spring.application.name"
-        defaultValue="app"/>
-    <springProperty scope="context" name="LOG_PATH" source="logging.file"
-        defaultValue="${LOG_FILE}"/>
-    <contextName>${HOSTNAME}</contextName>
-	
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+	<springProfile name="development,production">
+		<appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_FILE}</file>
 
-	<!-- Log file -->
-	<appender name="file"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}/${app.name}/${app.name}.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/var/log/${app.name}/arch/${app.name}.log.%d{dd-MM-yyyy}.%i.log.zip</fileNamePattern>
-			<maxHistory>60</maxHistory>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>5MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d %5p [%t] %c{2}:%L - %m%n</pattern>
-		</encoder>
-	</appender>
-	
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_FILE}-%d{dd-MM-yyyy}.%i.log.zip</fileNamePattern>
+				<maxHistory>20</maxHistory>
+				<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+					<maxFileSize>10MB</maxFileSize>
+				</timeBasedFileNamingAndTriggeringPolicy>
+			</rollingPolicy>
 
-		<!-- Categories -->
-	<logger name="org.springframework" level="INFO" />
-	<logger name="org.springframework.messaging" level="INFO" />
-	<logger name="org.springframework.messaging.simp" level="INFO" />
-
-	<logger name="org.apache" level="INFO" />
-	<logger name="com.sun" level="INFO" />
-
-	<logger name="com.eventer" level="INFO" />
-	<logger name="com.netflix.discovery.TimedSupervisorTask" level="OFF" />
-
+			<encoder>
+				<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+			</encoder>
+		</appender>
+	</springProfile>
 
 	<root level="INFO">
-		<springProfile name="development">
-			<appender-ref ref="STDOUT" />
-			 <!--  <appender-ref ref="email"/>  -->
-		</springProfile>
-		<springProfile name="test">	
-			<appender-ref ref="STDOUT" />
-			 <!--  <appender-ref ref="email"/>  -->
-		</springProfile>
-		<appender-ref ref="file" />
-  		<springProfile name="production">
-			<appender-ref ref="email"/>
-			<!-- <appender-ref ref="ASYNC_SLACK" />  -->
+		<appender-ref ref="CONSOLE" />
+
+		<springProfile name="integration,staging,production">
+			<appender-ref ref="ROLLING_FILE_APPENDER" />
 		</springProfile>
 	</root>
+
 </configuration>

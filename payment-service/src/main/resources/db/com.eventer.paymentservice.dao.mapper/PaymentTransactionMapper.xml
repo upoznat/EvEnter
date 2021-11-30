@@ -36,10 +36,10 @@
     </update>
 
 
-    <select id="findPaymentTransaction" parameterType="CreatePaymentTransactionRequest" resultMap="paymentTransaction">
-        select * from payment_transaction
-        where user_id = #{userId}
-          and uuid = #{uuid}
-    </select>
+<!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
+<!--        select * from payment_transaction-->
+<!--        where user_id = #{userId}-->
+<!--          and uuid = #{uuid}-->
+<!--    </select>-->
 
 </mapper>
