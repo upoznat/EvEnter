@@ -1,0 +1,37 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: version 1.0
+      author: poznanuros@gmail.com
+
+      tagDatabase:
+        tag: 1.0
+
+  - changeSet:
+      id: initial
+      author: poznanuros@gmail.com
+      changes:
+        - comment: Initial database schema
+          strip-comments: true
+          sql: |
+
+                create sequence seq_user_balance start with 1 increment by 1;
+
+
+                create table user_balance (
+                id number not null,
+                date_created timestamp,
+                date_modified timestamp,
+                user_id number,
+                balance_type number,
+                balance number
+                CONSTRAINT PK_USER PRIMARY KEY (id)
+                );
+
+
+                comment on column user_balance.date_created is 'Datum incijalnog snimanja stanja korisnika';
+                comment on column user_balance.date_modified is 'Datum poslednje izmene stanja novca';
+                comment on column user_balance.user_id is 'Jedinstveni id korisnika u sistemu';
+                comment on column user_balance.balance_type is 'Koji je tip stanja novca - 1-raspolozivo, 2-rezervisano';
+                comment on column user_balance.balance is 'Iznos novca';
+
