@@ -1,0 +1,28 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    discovery:
+      enabled: false
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+
+management:
+  endpoints:
+    jmx:
+      domain: ${spring.application.name}
+
+management.security.enabled: false
+
+security:
+  basic:
+    enable: false
+  ignored: /**
