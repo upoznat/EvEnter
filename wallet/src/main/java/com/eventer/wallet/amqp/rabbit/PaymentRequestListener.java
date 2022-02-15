@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PaymentResponseListener {
+public class PaymentRequestListener {
 
     @Autowired
     UserTransactionService customerService;

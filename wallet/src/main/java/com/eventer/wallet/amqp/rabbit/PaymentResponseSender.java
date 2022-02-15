@@ -20,8 +20,13 @@ public class PaymentResponseSender {
     private AmqpTemplate rabbitTemplate;
 
     @Async("payin-response-sending-executor")
-    public void send(PaymentResponseDTO message) {
+    public void sendPayinResponse(PaymentResponseDTO message) {
         rabbitTemplate.convertAndSend(Queues.WALLET_PAYIN_RESPONSE_QUEUE, message);
+    }
+
+    @Async("payin-response-sending-executor")
+    public void sendWithdrawResponse(PaymentResponseDTO message) {
+        rabbitTemplate.convertAndSend(Queues.WALLET_WITHDRAW__RESPONSE_QUEUE, message);
     }
 
 

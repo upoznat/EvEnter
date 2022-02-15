@@ -24,8 +24,20 @@ public class ExecutorConfig {
         return executor;
     }
 
-    @Bean("payment-request-executor")
-    public ThreadPoolTaskExecutor processRequestExecutor() {
+    @Bean("payin-request-executor")
+    public ThreadPoolTaskExecutor processPayinRequestExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(properties.getPaymentInPoolSize());
+        executor.setThreadNamePrefix("payment-request-executor");
+        executor.setAwaitTerminationSeconds(properties.getPaymentInAwaitTerminationSeconds());
+        executor.initialize();
+
+        return executor;
+    }
+
+
+    @Bean("withdraw-request-executor")
+    public ThreadPoolTaskExecutor processWithdrawRequestExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(properties.getPaymentInPoolSize());
         executor.setThreadNamePrefix("payment-request-executor");

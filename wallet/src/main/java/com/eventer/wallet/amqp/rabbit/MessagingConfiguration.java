@@ -23,6 +23,9 @@ public class MessagingConfiguration {
 
     static final String WALLET_EXCHANGE = "wallet-message-exchange";
 
+    @Autowired
+    RabbitMQProperties properties;
+
     @Bean
     Queue payinRequestQueue() {
         return new Queue(WALLET_PAYIN_REQUEST_QUEUE, false);
@@ -39,8 +42,6 @@ public class MessagingConfiguration {
 
     }
 
-    @Autowired
-    RabbitMQProperties properties;
 
     @Bean
     public ConnectionFactory connectionFactory() {
