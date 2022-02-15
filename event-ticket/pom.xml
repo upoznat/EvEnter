@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eventer</groupId>
-	<artifactId>player-event</artifactId>
+	<artifactId>event-ticket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>player-event</name>
-	<description>PlayerEvent - part of an EvEnter application implemented as a master thesis project</description>
+	<name>event-ticket</name>
+	<description>EventTicket - part of an EvEnter application implemented as a master thesis project</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
