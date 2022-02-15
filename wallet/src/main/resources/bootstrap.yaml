@@ -1,0 +1,53 @@
+server:
+  #  context-path: /${spring.application.name}
+  servlet:
+  context-path: /wallet
+  port: 8881
+
+spring:
+  application:
+    name: wallet
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: false
+#        service-id: CONFIG-SERVICE
+#      username: service
+#      fail-fast: true
+#      retry:
+#        initial-interval: 500
+#        max-attempts: 2
+#        max-interval: 500
+#        multiplier: 1.0
+
+logging:
+  file: /var/log/${spring.application.name}.log
+
+---
+#spring:
+#  profiles: integration
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://${eureka.host}:${eureka.port}/eureka/
+#  instance:
+#    hostname: ${service.host.ip}
+#    ip-address: ${service.host.ip}
+#    instance-id: ${service.host.ip}:${spring.application.name}:${server.port}
+#
+#---
+#spring:
+#  profiles: staging,production
+#  cloud:
+#    config:
+#      password: ${config_service_password}
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    service-url:
+#      defaultZone: http://${eureka_host1}:${eureka_port}/eureka/,http://${eureka_host2}:${eureka_port}/eureka/
+#  instance:
+#    hostname: ${service.host.ip}
+#    ip-address: ${service.host.ip}
+#    instance-id: ${service.host.ip}:${spring.application.name}:${server.port}
