@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.paymentservice.dao.mapper.UserMapper">
+
+    <resultMap type="User" id="user">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="identityNumber" column="identity_number"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="address" column="address"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="email" column="email"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+    <insert id="saveUser" parameterType="User">
+        insert into user
+            (id, username, identity_number, first_name, last_name, address, registration_date, email, status)
+        values (#{id}, #{username}, #{identityNumber})
+    </insert>
+
+    <select id="findUser" parameterType="Long" resultMap="user">
+        select *
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="findUserByIdentityNumber" parameterType="String" resultMap="user">
+        select *
+        from user
+        where identity_number = #{identityNumber}
+    </select>
+
+    <select id="findUserByUsername" parameterType="String" resultMap="user">
+        select *
+        from user
+        where username = #{username}
+    </select>
+
+    <update id="updatePlayer" parameterType="User">
+        update player
+        set username = #{username},
+            identity_number = #{identityNumber},
+            password = #{password},
+            first_name = #{firstName},
+            last_name = #{lastName},
+            address  = #{address},
+            registration_date = #{registrationDate},
+            email = #{email},
+            status  = #{status}
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,93 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+  activemq:
+    pool:
+      enabled: true
+      
+management.security.enabled: false
+
+mybatis: 
+  config-location: classpath:mybatis/mybatis-config.xml
+
+spring.main.allow-bean-definition-overriding: true
+
+logging.level.com.*.client: DEBUG
+
+logbook:
+  exclude:
+    - '/**/healthcheck'
+    - '/**/health'
+    - '/**/info'
+    - '/**/error'
+  filter.enabled: true
+  format.style: http
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+    parameters:
+      - access_token
+      - password
+  write:
+    category: http.rest
+    level: INFO
+    max-body-size: 4096 
+
+---
+spring:
+  profiles: test
+  
+#  activemq:
+#    broker-url: vm://localhost?broker.persistent=false&broker.schedulerSupport=true&broker.deleteAllMessagesOnStartup=true
+  
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:testdb;
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+    
+    hikari:
+      jdbcUrl: jdbc:h2:mem:testdb;
+      username: sa
+      password:
+
+  liquibase:
+    enabled: true
+    
+#---
+#spring:
+#  profiles: development
+#  activemq:
+#    broker-url: tcp://localhost:61616
+#    password: cs
+#    user: cs
+#    initialRedeliveryDelay: 60000
+#    redeliveryDelay: 15000
+#    maximumRedeliveries: 1
+#    pool:
+#      enabled: true
+#      max-connections: 10
+#      create-connection-on-startup: true
+#
+#
+#  datasource:
+#    url: jdbc:oracle:thin:@localhost:1521:xe
+#    username: useractivity
+#    password: useractivity!
+#    
+#  liquibase:
+#    enabled: true
+#  
+#hystrix:
+#  command:
+#    default.execution.isolation.thread.timeoutInMilliseconds: 20000
+#
+##  jackson:
+##    serialization.WRITE_DATES_AS_TIMESTAMPS: true
+##    serialization.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false    
+#    
+
+

@@ -1,0 +1,25 @@
+server:
+  #  context-path: /${spring.application.name}
+  servlet:
+  context-path: /event-ticket
+  port: 8881
+
+spring:
+  application:
+    name: event-ticket
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: false
+#        service-id: CONFIG-SERVICE
+#      username: service
+#      fail-fast: true
+#      retry:
+#        initial-interval: 500
+#        max-attempts: 2
+#        max-interval: 500
+#        multiplier: 1.0
+
+logging:
+  file: /var/log/${spring.application.name}.log
+

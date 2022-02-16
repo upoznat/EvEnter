@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.eventticket.dao.mapper.EventMapper">
+
+    <resultMap type="Event" id="event">
+        <result property="id" column="id" />
+        <result property="dateCreated" column="date_created" />
+        <result property="dateModified" column="date_modified" />
+        <result property="startDate" column="start_date" />
+        <result property="totalCapacity" column="total_capacity" />
+        <result property="availableTickets" column="available_tickets" />
+        <result property="status" column="status" />
+    </resultMap>
+
+
+    <insert id="saveEvent" parameterType="Event">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select
+            seq_event.nextval from dual
+        </selectKey>
+        insert into event
+        (id, date_created, date_modified, start_date, total_capacity, available_tickets, status)
+        values
+        (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{totalCapacity}, #{availableTickets}, #{status})
+    </insert>
+
+    <update id="updateTicket" parameterType="Event">
+        update payment_transaction
+        set date_modified = #{dateModified}
+        where id = #{id}
+    </update>
+
+
+    <!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
+    <!--        select * from payment_transaction-->
+    <!--        where user_id = #{userId}-->
+    <!--          and uuid = #{uuid}-->
+    <!--    </select>-->
+
+</mapper>
