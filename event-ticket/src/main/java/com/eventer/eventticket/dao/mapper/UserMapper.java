@@ -12,5 +12,25 @@ public interface UserMapper {
      * @param user
      */
     void saveUser(User user);
+    /**
+     * Azurira podatke o korisniku
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
+
+    /**
+     * Dohvata korisnika po prosledjenom id-u
+     * @param id
+     * @return
+     */
+    User findUser(Long id);
+
+    /**
+     * Dohvata korisnika po prosledjenom identityNumbery
+     * @param identityNumber
+     * @return
+     */
+    com.eventer.paymentservice.domain.User findUserByIdentityNumber(String identityNumber);
 
 }

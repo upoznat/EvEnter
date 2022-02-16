@@ -30,7 +30,7 @@ databaseChangeLog:
                 registration_date timestamp not null,
                 email varchar(40),
                 status varchar(20) not null,
-                CONSTRAINT PK_player PRIMARY KEY (id)
+                CONSTRAINT PK_USER PRIMARY KEY (id)
                 );
 
                 comment on column user.id is 'Jedinstveni id korisnika u sistemu';

@@ -1,4 +1,4 @@
-package com.eventer.paymentservice.utils;
+package com.eventer.eventticket.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

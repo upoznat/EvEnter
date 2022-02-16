@@ -1,4 +1,4 @@
-package com.eventer.paymentservice.utils;
+package com.eventer.eventticket.utils;
 
 import static com.fasterxml.jackson.core.JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN;
 import static com.fasterxml.jackson.databind.DeserializationFeature.*;

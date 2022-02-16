@@ -1,4 +1,4 @@
-package com.eventer.paymentservice.exception;
+package com.eventer.eventticket.exception;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,7 +50,7 @@ public class ApplicationException extends RuntimeException{
 	}
 
 	public enum ErrorType {
-		NO_PLAYER_FOR_PARAMETERS("Ne postoji igrac za prosledjene parametre");
+		NO_USER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre");
 
 		private ErrorType(String description) {
 			this.description = description;

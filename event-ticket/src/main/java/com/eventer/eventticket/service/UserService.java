@@ -1,15 +1,14 @@
-package com.eventer.paymentservice.service;
+package com.eventer.eventticket.service;
 
-import com.eventer.paymentservice.dao.mapper.UserMapper;
-import com.eventer.paymentservice.domain.User;
-import com.eventer.paymentservice.dto.UserInfoDTO;
-import com.eventer.paymentservice.exception.PaymentTransactionProcessingException;
+import com.eventer.eventticket.dao.mapper.UserMapper;
+import com.eventer.eventticket.domain.User;
+import com.eventer.eventticket.exception.EventTicketProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.eventer.paymentservice.exception.ApplicationException.ErrorType.NO_PLAYER_FOR_PARAMETERS;
+import static com.eventer.eventticket.exception.ApplicationException.ErrorType.NO_USER_FOR_PARAMETERS;
 
 @Service
 @Slf4j
@@ -19,30 +18,26 @@ public class UserService {
     private UserMapper userMapper;
 
     @Transactional
-    public User persistPlayerInfo(UserInfoDTO userInfo){
-        User player = User.builder()
-                .id(userInfo.getUserId())
-                .identityNumber(userInfo.getIdentityNumber())
-                .username(userInfo.getUserName())
-                .build();
+    public User persistUserInfo(User user){
 
-        User existingUser = userMapper.findUser(userInfo.getUserId());
+
+        User existingUser = userMapper.findUser(user.getId());
 
         if (existingUser == null) {
-            userMapper.saveUser(player);
+            userMapper.saveUser(user);
         }
         else {
-            userMapper.updateUser(player);
+            userMapper.updateUser(user);
         }
 
-        return player;
+        return user;
     }
 
-    public User getUser(UserInfoDTO userInfo){
-        User user = userMapper.findUser(userInfo.getUserId());
+    public User getUser(User userInfo){
+        User user = userMapper.findUser(userInfo.getId());
         if(user == null){
-            log.warn("Ne postoji igrac za prosledjene parametre.");
-            throw new PaymentTransactionProcessingException(NO_PLAYER_FOR_PARAMETERS);
+            log.warn("Ne postoji korisnik za prosledjene parametre.");
+            throw new EventTicketProcessingException(NO_USER_FOR_PARAMETERS);
         }
         return user;
     }
