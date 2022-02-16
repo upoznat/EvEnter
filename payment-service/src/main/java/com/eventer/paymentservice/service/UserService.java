@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.eventer.paymentservice.exception.ApplicationException.ErrorType.NO_PLAYER_FOR_PARAMETERS;
+import static com.eventer.paymentservice.exception.ApplicationException.ErrorType.NO_USER_FOR_PARAMETERS;
 
 @Service
 @Slf4j
@@ -19,8 +19,8 @@ public class UserService {
     private UserMapper userMapper;
 
     @Transactional
-    public User persistPlayerInfo(UserInfoDTO userInfo){
-        User player = User.builder()
+    public User persistUserInfo(UserInfoDTO userInfo){
+        User user = User.builder()
                 .id(userInfo.getUserId())
                 .identityNumber(userInfo.getIdentityNumber())
                 .username(userInfo.getUserName())
@@ -29,20 +29,20 @@ public class UserService {
         User existingUser = userMapper.findUser(userInfo.getUserId());
 
         if (existingUser == null) {
-            userMapper.saveUser(player);
+            userMapper.saveUser(user);
         }
         else {
-            userMapper.updateUser(player);
+            userMapper.updateUser(user);
         }
 
-        return player;
+        return user;
     }
 
     public User getUser(UserInfoDTO userInfo){
         User user = userMapper.findUser(userInfo.getUserId());
         if(user == null){
-            log.warn("Ne postoji igrac za prosledjene parametre.");
-            throw new PaymentTransactionProcessingException(NO_PLAYER_FOR_PARAMETERS);
+            log.warn("Ne postoji korisnik za prosledjene parametre.");
+            throw new PaymentTransactionProcessingException(NO_USER_FOR_PARAMETERS);
         }
         return user;
     }

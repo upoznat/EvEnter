@@ -22,7 +22,7 @@ databaseChangeLog:
                 id number not null,
                 username varchar(20),
                 identity_number varchar(20),
-                CONSTRAINT PK_player PRIMARY KEY (id)
+                CONSTRAINT PK_USER PRIMARY KEY (id)
                 );
 
                 comment on column user.id is 'Jedinstveni id korisnika u sistemu';

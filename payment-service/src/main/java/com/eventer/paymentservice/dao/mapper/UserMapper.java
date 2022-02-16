@@ -34,11 +34,11 @@ public interface UserMapper {
     User findUserByIdentityNumber(String identityNumber);
 
     /**
-     * Dohvata listu igraca za prosledjeni username ili identityNumber
+     * Dohvata listu korisnika za prosledjeni username ili identityNumber
      * (rezultat bi trebalo da bude jedinstven,
-     * ali desava se da postoje igraci sa istim username-on)
+     * ali desava se da postoje korisnici sa istim username-on)
      * @param request
      * @return
      */
-  //  List<User> findPlayerByUsernameAndIdentityNumber(PlayerRequest request);
+  //  List<User> findPUserByUsernameAndIdentityNumber(UserRequest request);
 }

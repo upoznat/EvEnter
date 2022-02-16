@@ -28,7 +28,7 @@ public class PaymentTransactionService {
 
 
     /**
-     * Pronalazi igraca za zadati JMBG i snima zahtev za uplatu u pocetnom statusu ili u statusu greske ako korisnik nije pronadjen
+     * Pronalazi korisnika za zadati JMBG i snima zahtev za uplatu u pocetnom statusu ili u statusu greske ako korisnik nije pronadjen
      */
     @Transactional
     public void createAndSavePayment(ExternalPaymentRequestDTO request) {

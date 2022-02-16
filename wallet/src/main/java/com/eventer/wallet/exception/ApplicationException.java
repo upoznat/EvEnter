@@ -1,4 +1,4 @@
-package com.eventer.paymentservice.exception;
+package com.eventer.wallet.exception;
 
 import lombok.Getter;
 import lombok.Setter;
