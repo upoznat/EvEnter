@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.wallet.dao.mapper.UserBalanceMapper">
+
+    <resultMap type="UserBalance" id="userBalance">
+        <result property="id" column="id" />
+        <result property="dateCreated" column="date_created" />
+        <result property="dateModified" column="date_modified" />
+        <result property="userId" column="user_id" />
+        <result property="balanceType" column="balance_type" />
+        <result property="balance" column="balance" />
+        <result property="version" column="version" />
+    </resultMap>
+
+
+    <insert id="save" parameterType="UserBalance">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select
+            seq_user_balance.nextval from dual
+        </selectKey>
+        insert into user_balance
+        (id, date_created, date_modified, user_id, balance_type, balance)
+        values
+        (#{id}, #{dateCreated}, #{dateModified}, #{user_id}, #{balanceType},
+        #{balance})
+    </insert>
+
+    <update id="update" parameterType="UserBalance">
+        update user_balance
+        set date_modified = #{dateModified},
+            amount = #{amount},
+            version = version + 1
+        where balance_type = #{balanceType}
+          and user_id = #{userId}
+            and version = #{version}
+    </update>
+
+
+    <select id="findBalance" parameterType="CreatePaymentTransactionRequest" resultMap="paymentTransaction">
+        select * from user_balance
+        where balance_type = #{balanceType} and user_id = #{userId}
+    </select>
+
+    <select id="getById" resultMap="userBalance">
+        select
+            b.*
+        from
+            user_balance b
+        where
+            b.id = #{id}
+    </select>
+
+</mapper>

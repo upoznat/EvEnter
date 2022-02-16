@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.wallet.dao.mapper.UserTransactionMapper">
+
+    <resultMap type="UserBalance" id="userBalance">
+        <result property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="externalId" column="external_id" />
+    </resultMap>
+
+
+    <insert id="save" parameterType="UserTransaction">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select
+            seq_user_transaction.nextval from dual
+        </selectKey>
+        insert into user_transaction
+        (id, user_id, external_id)
+        values
+        (#{id}, #{userId}, #{externalId})
+    </insert>
+
+    <!--update id="update" parameterType="UserTransaction">
+        update user_balance
+        set user_id = #{userId},
+            external_id = #{externalId}
+        where balance_type = #{balanceType} and user_id = #{userId}
+    </update-->
+
+
+    <select id="getByExternalId" parameterType="String" resultMap="userTransaction">
+        select * from user_transaction
+        where external_id = #{externalId}
+    </select>
+
+</mapper>
