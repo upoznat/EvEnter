@@ -2,6 +2,8 @@ package com.eventer.eventticket.domain;
 
 import lombok.*;
 
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.Instant;
 
 @Getter
@@ -28,5 +30,16 @@ public enum TicketStatus {
     Purchased,
     Deleted;
 }
+
+    @PrePersist
+    public void prePersist() {
+        dateCreated = Instant.now();
+        dateModified = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        dateModified = Instant.now();
+    }
 
 }

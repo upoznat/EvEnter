@@ -31,6 +31,6 @@ public interface UserMapper {
      * @param identityNumber
      * @return
      */
-    com.eventer.paymentservice.domain.User findUserByIdentityNumber(String identityNumber);
+    User findUserByIdentityNumber(String identityNumber);
 
 }

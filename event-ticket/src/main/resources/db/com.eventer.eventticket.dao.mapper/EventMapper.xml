@@ -4,6 +4,9 @@
 
     <resultMap type="Event" id="event">
         <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="location" column="location" />
+        <result property="address" column="address" />
         <result property="dateCreated" column="date_created" />
         <result property="dateModified" column="date_modified" />
         <result property="startDate" column="start_date" />
@@ -24,17 +27,22 @@
         (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{totalCapacity}, #{availableTickets}, #{status})
     </insert>
 
-    <update id="updateTicket" parameterType="Event">
-        update payment_transaction
-        set date_modified = #{dateModified}
+    <update id="updateEvent" parameterType="Event">
+        update event
+        set date_modified = #{dateModified},
+            start_date = #{startDate},
+            totalCapacity = #{total_capacity},
+            available_tickets = #{availableTickets},
+            status = #{status}
         where id = #{id}
     </update>
 
+    <update id="updateAvailableTicketsFor" parameterType="int">
+        update event
+        set date_modified = #{dateModified},
+            available_tickets = available_tickets + #{number}
+        where id = #{id}
+    </update>
 
-    <!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
-    <!--        select * from payment_transaction-->
-    <!--        where user_id = #{userId}-->
-    <!--          and uuid = #{uuid}-->
-    <!--    </select>-->
 
 </mapper>

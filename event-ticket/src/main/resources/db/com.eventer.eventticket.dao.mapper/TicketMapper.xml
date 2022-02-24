@@ -27,11 +27,21 @@
         #{transactionDetails})
     </insert>
 
-    <update id="updateTicket" parameterType="Ticket">
-        update payment_transaction
-        set date_modified = #{dateModified}
-        where id = #{id}
+    <update id="updateTickets">
+        update ticket
+        set date_modified = #{dateModified},
+            user_id = #{userId},
+            status= #{status}
+        where id in #{ticketIds}
     </update>
+
+    <select id="getTicketsForEventWithLock">
+        select id
+        from ticket
+        where event_id = #{eventId} and status='Created' and rownum <= #{numOfTickets}
+        order by id asc
+        for update;
+    </select>
 
 
 <!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
