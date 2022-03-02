@@ -29,6 +29,6 @@ public interface TicketMapper {
      * @param numOfTickets broj karata
      * @return
      */
-    List<Long> getTicketsForEventWithLock(Long eventId, Integer numOfTickets);
+    List<Ticket> getTicketsForEventWithLock(Long eventId, Integer numOfTickets);
 
 }

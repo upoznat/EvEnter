@@ -1,5 +1,6 @@
 package com.eventer.eventticket.dto;
 
+
 import com.eventer.eventticket.utils.TicketWalletType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,24 +9,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyTicketRequest {
+public class WalletRequest {
 
-        @NotBlank
-        @JsonProperty
-        private Long userId;
+    @NotBlank
+    @JsonProperty
+    private Long userId;
 
-        @NotBlank
-        @JsonProperty
-        private Long eventId;
+    @NotBlank
+    @JsonProperty
+    private Double amount;
 
-        @NotBlank
-        @JsonProperty
-        private Integer numberOfTickets;
+    @NotBlank
+    @JsonProperty
+    private List<Long> ticketIds;
+
+    @NotBlank
+    @JsonProperty
+    private TicketWalletType type;
 
 }

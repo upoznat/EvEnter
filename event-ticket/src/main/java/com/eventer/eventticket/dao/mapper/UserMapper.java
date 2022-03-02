@@ -21,10 +21,10 @@ public interface UserMapper {
 
     /**
      * Dohvata korisnika po prosledjenom id-u
-     * @param id
+     * @param user
      * @return
      */
-    User findUser(Long id);
+    User findUser(User user);
 
     /**
      * Dohvata korisnika po prosledjenom identityNumbery

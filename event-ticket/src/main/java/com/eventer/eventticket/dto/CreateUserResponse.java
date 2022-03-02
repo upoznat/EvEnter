@@ -6,21 +6,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyTicketResponse {
+public class CreateUserResponse implements Serializable {
 
     @JsonProperty
-    private Status status;
+    Long userId;
 
     @JsonProperty
-    private String details;
+    Status status;
 
     @JsonProperty
-    private List<Long> ticketIds;
+    String details;
 
 }

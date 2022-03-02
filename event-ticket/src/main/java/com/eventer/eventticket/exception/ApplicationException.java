@@ -50,7 +50,8 @@ public class ApplicationException extends RuntimeException{
 	}
 
 	public enum ErrorType {
-		NO_USER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre");
+		NO_USER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre"),
+		IRREGULAR_RESPONSE("Dobijen neočekivani odgovor");
 
 		private ErrorType(String description) {
 			this.description = description;

@@ -7,25 +7,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyTicketRequest {
+public class TicketWalletResponse {
 
-        @NotBlank
-        @JsonProperty
-        private Long userId;
+    @JsonProperty
+    private Status status;
 
-        @NotBlank
-        @JsonProperty
-        private Long eventId;
+    @JsonProperty
+    private String details;
 
-        @NotBlank
-        @JsonProperty
-        private Integer numberOfTickets;
+    @JsonProperty
+    private List<Long> ticketIds;
+
+    @JsonProperty
+    private Long userId;
+
+    @JsonProperty
+    private TicketWalletType type;
 
 }

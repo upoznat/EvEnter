@@ -1,6 +1,9 @@
 package com.eventer.eventticket.amqp.rabbit;
 
 import com.eventer.eventticket.amqp.Queues;
+import com.eventer.eventticket.dto.BuyTicketRequest;
+import com.eventer.eventticket.dto.WalletRequest;
+import com.eventer.eventticket.utils.TicketWalletType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,19 +16,27 @@ import javax.jms.JMSException;
 
 @Component
 @Slf4j
-public class PaymentResponseSender {
+public class RequestSender {
 
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
     @Async("payin-response-sending-executor")
-    public void sendBuyTicketRequest(String message) {
+    void sendBuyTicketRequest(WalletRequest message) {
         rabbitTemplate.convertAndSend(Queues.WALLET_BUY_TICKET_REQUEST_QUEUE, message);
     }
 
     @Async("payin-response-sending-executor")
-    public void sendCancelTicketRequest(String message) {
+    void sendCancelTicketRequest(WalletRequest message) {
         rabbitTemplate.convertAndSend(Queues.WALLET_CANCEL_TICKET_REQUEST_QUEUE, message);
+    }
+
+    public void sendTicketRequestToWallet(WalletRequest message) {
+        if(TicketWalletType.BUY.equals(message.getType())) {
+            sendBuyTicketRequest(message);
+        } else if(TicketWalletType.CANCEL.equals(message.getType())) {
+            sendCancelTicketRequest(message);
+        }
     }
 
 

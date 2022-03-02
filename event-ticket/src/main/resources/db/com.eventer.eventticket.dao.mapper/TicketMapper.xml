@@ -36,7 +36,7 @@
     </update>
 
     <select id="getTicketsForEventWithLock">
-        select id
+        select *
         from ticket
         where event_id = #{eventId} and status='Created' and rownum <= #{numOfTickets}
         order by id asc

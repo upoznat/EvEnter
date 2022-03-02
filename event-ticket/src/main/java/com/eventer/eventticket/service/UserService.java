@@ -2,6 +2,7 @@ package com.eventer.eventticket.service;
 
 import com.eventer.eventticket.dao.mapper.UserMapper;
 import com.eventer.eventticket.domain.User;
+import com.eventer.eventticket.dto.UserDto;
 import com.eventer.eventticket.exception.EventTicketProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,7 @@ public class UserService {
     @Transactional
     public User persistUserInfo(User user){
 
-
-        User existingUser = userMapper.findUser(user.getId());
+        User existingUser = userMapper.findUser(user);
 
         if (existingUser == null) {
             userMapper.saveUser(user);
@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public User getUser(User userInfo){
-        User user = userMapper.findUser(userInfo.getId());
+        User user = userMapper.findUser(userInfo);
         if(user == null){
             log.warn("Ne postoji korisnik za prosledjene parametre.");
             throw new EventTicketProcessingException(NO_USER_FOR_PARAMETERS);
