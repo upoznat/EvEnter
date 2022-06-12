@@ -1,12 +1,7 @@
 package com.eventer.eventticket.rest.controller;
 
-import com.eventer.eventticket.domain.Event;
 import com.eventer.eventticket.domain.User;
-import com.eventer.eventticket.domain.User.UserStatus;
-import com.eventer.eventticket.dto.CreateEventResponse;
 import com.eventer.eventticket.dto.CreateUserResponse;
-import com.eventer.eventticket.dto.Status;
-import com.eventer.eventticket.dto.UserDto;
 import com.eventer.eventticket.exception.EventTicketProcessingException;
 import com.eventer.eventticket.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.eventer.eventticket.domain.User.UserStatus.Active;
 import static com.eventer.eventticket.dto.Status.FAIL;
 import static com.eventer.eventticket.dto.Status.SUCCESS;
 

@@ -17,11 +17,10 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.amqp.core.*;
 
 import static com.eventer.eventticket.amqp.Queues.WALLET_BUY_TICKET_REQUEST_QUEUE;
+import static com.eventer.eventticket.amqp.rabbit.Exchanges.WALLET_EXCHANGE;
 
 @Configuration
 public class MessagingConfiguration {
-
-    static final String WALLET_EXCHANGE = "wallet-message-exchange";
 
     @Autowired
     RabbitMQProperties properties;
@@ -44,8 +43,8 @@ public class MessagingConfiguration {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(rabbitConnectionFactory().getRabbitConnectionFactory());
-
+        CachingConnectionFactory cachingConnectionFactory =
+                new CachingConnectionFactory(rabbitConnectionFactory().getRabbitConnectionFactory());
         cachingConnectionFactory.setChannelCacheSize(10);
         cachingConnectionFactory.setCacheMode(CachingConnectionFactory.CacheMode.CHANNEL);
 
@@ -54,7 +53,6 @@ public class MessagingConfiguration {
 
     public RabbitConnectionFactoryBean rabbitConnectionFactory() {
         RabbitConnectionFactoryBean connectionFactory = new RabbitConnectionFactoryBean();
-
         connectionFactory.setHost(properties.getWalletExchangeUrl());
         connectionFactory.setUsername(properties.getWalletUsername());
         connectionFactory.setPassword(properties.getWalletPassword());
@@ -65,7 +63,7 @@ public class MessagingConfiguration {
     @Bean
     public AmqpTemplate template(ConnectionFactory connectionFactory, MessageConverter converter){
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(converter());
+        rabbitTemplate.setMessageConverter(converter);
         return rabbitTemplate;
     }
 

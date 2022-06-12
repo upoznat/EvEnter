@@ -1,7 +1,6 @@
 package com.eventer.eventticket.amqp;
 
-public class Queues {
-
+public final class Queues {
 
     public static final String WALLET_BUY_TICKET_REQUEST_QUEUE = "wallet_buy_ticket_request";
     public static final String WALLET_CANCEL_TICKET_REQUEST_QUEUE = "wallet_cancel_ticket_request";

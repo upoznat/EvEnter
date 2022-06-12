@@ -14,19 +14,20 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 
-@Component
+
 @Slf4j
+@Component
 public class RequestSender {
 
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
-    @Async("payin-response-sending-executor")
+    @Async("payin-request-sending-executor")
     void sendBuyTicketRequest(WalletRequest message) {
         rabbitTemplate.convertAndSend(Queues.WALLET_BUY_TICKET_REQUEST_QUEUE, message);
     }
 
-    @Async("payin-response-sending-executor")
+    @Async("payin-request-sending-executor")
     void sendCancelTicketRequest(WalletRequest message) {
         rabbitTemplate.convertAndSend(Queues.WALLET_CANCEL_TICKET_REQUEST_QUEUE, message);
     }

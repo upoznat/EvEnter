@@ -19,7 +19,7 @@ public class EventListener {
     @PrePersist
     public void prePersist(Event event) {
         event.setDateCreated(Instant.now());
-        event.setDateCreated(Instant.now());
+        event.setDateModified(Instant.now());
     }
 
     @PreUpdate

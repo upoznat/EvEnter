@@ -45,14 +45,15 @@ public class MessagingConfiguration {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(rabbitConnectionFactory().getRabbitConnectionFactory());
-
+        CachingConnectionFactory cachingConnectionFactory =
+                new CachingConnectionFactory(rabbitConnectionFactory().getRabbitConnectionFactory());
         cachingConnectionFactory.setChannelCacheSize(10);
         cachingConnectionFactory.setCacheMode(CachingConnectionFactory.CacheMode.CHANNEL);
 
         return cachingConnectionFactory;
     }
 
+    @Bean
     public RabbitConnectionFactoryBean rabbitConnectionFactory() {
         RabbitConnectionFactoryBean connectionFactory = new RabbitConnectionFactoryBean();
 
@@ -66,7 +67,7 @@ public class MessagingConfiguration {
     @Bean
     public AmqpTemplate template(ConnectionFactory connectionFactory, MessageConverter converter){
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(converter());
+        rabbitTemplate.setMessageConverter(converter);
         return rabbitTemplate;
     }
 
