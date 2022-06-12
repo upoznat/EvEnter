@@ -1,0 +1,97 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: version 1.0
+      author: poznanuros@gmail.com
+
+      tagDatabase:
+        tag: 1.0
+
+  - changeSet:
+      id: initial
+      author: poznanuros@gmail.com
+      changes:
+        - comment: Initial database schema
+          strip-comments: true
+          sql: |
+
+                create sequence seq_users start with 1 increment by 1;
+                create sequence seq_event start with 1 increment by 1;
+                create sequence seq_ticket start with 1 increment by 1;
+
+                create table user (
+                id number not null,
+                username varchar(20) not null,
+                password varchar(200) not null,
+                identity_number varchar(20) not null,
+                first_name varchar(20) not null,
+                last_name varchar(20),
+                address varchar(20),
+                registration_date timestamp not null,
+                email varchar(40),
+                status varchar(20) not null,
+                CONSTRAINT PK_USER PRIMARY KEY (id)
+                );
+
+                comment on column user.id is 'Jedinstveni id korisnika u sistemu';
+                comment on column user.username is 'Username korisnika';
+                comment on column user.identity_number is 'JMBG korisnika';
+
+                CREATE TABLE event
+                (
+                id INTEGER NOT NULL,
+                name varchar(20),
+                location varchar(20),
+                address varchar(20),
+                date_created timestamp,
+                date_modified timestamp,
+                start_date timestamp not null,
+                total_capacity integer not null,
+                available_tickets integer not null,
+                status varchar(20) not null,
+
+                CONSTRAINT PK_payment_transaction PRIMARY KEY (id)
+                );
+
+                comment on column payment_transaction.id is 'Jedinstveni id zahteva';
+                comment on column payment_transaction.name is 'Naziv dogadjaja';
+                comment on column payment_transaction.location is 'Adresa lokacije';
+                comment on column payment_transaction.location is 'Lokacija dogadjaja';
+                comment on column payment_transaction.date_created is 'Datum incijalnog snimanja zahteva';
+                comment on column payment_transaction.date_modified is 'Datum poslednje izmene';
+                comment on column payment_transaction.start_date is 'Datum održavanja dogadjaja';
+                comment on column payment_transaction.total_capacity is 'Ukupan broj karata za dogadjaj';
+                comment on column payment_transaction.available_tickets is 'Broj raspolozivih karata';
+                comment on column payment_transaction.status is 'Status dogadjaja';
+
+
+            CREATE TABLE ticket
+                     (
+                     id INTEGER NOT NULL,
+                     date_created timestamp,
+                     date_modified timestamp,
+                     start_date timestamp not null,
+                     price number not null,
+                     user_id number,
+                     event_id number,
+                     status varchar(20) not null,
+                     transaction_details,
+
+                     CONSTRAINT PK_payment_transaction PRIMARY KEY (id),
+                     constraint fk_user_id FOREIGN key(user_id) references user(id),
+                     constraint fk_event_id FOREIGN key(event_id) references event(id)
+                     );
+
+                     comment on column ticket.id is 'Jedinstveni id zahteva';
+                     comment on column ticket.date_created is 'Datum incijalnog snimanja zahteva';
+                     comment on column ticket.date_modified is 'Datum poslednje izmene';
+                     comment on column ticket.start_date is 'Datum odrzavanja dogadjaja';
+                     comment on column ticket.price is 'Cena ulaznice';
+                     comment on column ticket.user_id is 'Id korisnika koji je kupio kartu';
+                     comment on column ticket.event_id is 'Id dogadjaja za koji se kupuje ulaznica';
+                     comment on column ticket.status is 'Status ulaznice';
+                     comment on column ticket.transaction_details is 'Podaci o transakciji - kupovine karte';
+
+
+
+
