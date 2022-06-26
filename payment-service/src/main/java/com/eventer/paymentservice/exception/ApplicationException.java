@@ -50,7 +50,7 @@ public class ApplicationException extends RuntimeException{
 	}
 
 	public enum ErrorType {
-		NO_USER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre");
+		NO_CUSTOMER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre");
 
 		private ErrorType(String description) {
 			this.description = description;

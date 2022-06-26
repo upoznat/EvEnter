@@ -14,7 +14,7 @@ public class PaymentTransaction {
     private Long id;
     private Instant dateCreated;
     private Instant dateModified;
-    private User user;
+    private Customer customer;
     private PaymentType paymentType;
     private String provider;
     private PaymentStatus paymentStatus;
@@ -22,13 +22,13 @@ public class PaymentTransaction {
 
 
     @Builder
-    public PaymentTransaction(Long id, Instant dateCreated, Instant dateModified, User user,
+    public PaymentTransaction(Long id, Instant dateCreated, Instant dateModified, Customer customer,
                               PaymentType paymentType, String provider, PaymentStatus paymentStatus, String uuid) {
         super();
         this.id = id;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
-        this.user = user;
+        this.customer = customer;
         this.paymentType = paymentType;
         this.provider = provider;
         this.paymentStatus = paymentStatus;

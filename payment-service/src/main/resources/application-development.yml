@@ -7,6 +7,11 @@ spring:
   cloud:
     discovery:
       enabled: false
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: paymentservice
+    password: paymentservice!
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
@@ -15,12 +20,15 @@ eureka:
     enabled: false
     register-with-eureka: false
 
+
+
+
+
 management:
   endpoints:
     jmx:
       domain: ${spring.application.name}
 
-management.security.enabled: false
 
 security:
   basic:

@@ -6,7 +6,7 @@
         <result property="id" column="id" />
         <result property="dateCreated" column="date_created" />
         <result property="dateModified" column="date_modified" />
-        <result property="user.id" column="user_id" />
+        <result property="customer.id" column="customer_id" />
         <result property="paymentType" column="payment_type" />
         <result property="provider" column="provider" />
         <result property="paymentStatus" column="payment_status" />
@@ -20,10 +20,10 @@
             seq_payment_transactions.nextval from dual
         </selectKey>
         insert into payment_transaction
-        (id, date_created, date_modified, user_id, payment_type, provider,
+        (id, date_created, date_modified, customer_id, payment_type, provider,
         payment_status, uuid)
         values
-        (#{id}, #{dateCreated}, #{dateModified}, #{user.id}, #{paymentType},
+        (#{id}, #{dateCreated}, #{dateModified}, #{customer.id}, #{paymentType},
         #{provider}, #{paymentStatus}, #{uuid})
     </insert>
 
@@ -31,14 +31,13 @@
         update payment_transaction
         set date_modified = #{dateModified},
             payment_status = #{paymentStatus}
-
         where id = #{id}
     </update>
 
 
 <!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
 <!--        select * from payment_transaction-->
-<!--        where user_id = #{userId}-->
+<!--        where user_id = #{customerId}-->
 <!--          and uuid = #{uuid}-->
 <!--    </select>-->
 

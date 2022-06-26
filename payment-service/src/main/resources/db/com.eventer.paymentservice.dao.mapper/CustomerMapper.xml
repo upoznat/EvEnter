@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eventer.paymentservice.dao.mapper.CustomerMapper">
+
+    <resultMap type="Customer" id="customer">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="identityNumber" column="identity_number"/>
+    </resultMap>
+
+
+    <insert id="saveCustomer" parameterType="Customer">
+        insert into customer
+            (id, username, identity_number)
+        values (#{id}, #{username}, #{identityNumber})
+    </insert>
+
+    <select id="findCustomer" parameterType="Long" resultMap="customer">
+        select *
+        from customer
+        where id = #{id}
+    </select>
+
+    <select id="findCustomerByIdentityNumber" parameterType="String" resultMap="customer">
+        select *
+        from customer
+        where identity_number = #{identityNumber}
+    </select>
+
+    <update id="updateCustomer" parameterType="Customer">
+        update customer
+        set username        = #{username},
+            identity_number = #{identityNumber}
+        where id = #{id}
+    </update>
+
+</mapper>

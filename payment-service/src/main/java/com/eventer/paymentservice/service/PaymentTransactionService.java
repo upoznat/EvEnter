@@ -1,11 +1,11 @@
 package com.eventer.paymentservice.service;
 
 import com.eventer.paymentservice.dao.mapper.PaymentTransactionMapper;
-import com.eventer.paymentservice.dao.mapper.UserMapper;
+import com.eventer.paymentservice.dao.mapper.CustomerMapper;
 import com.eventer.paymentservice.domain.PaymentStatus;
 import com.eventer.paymentservice.domain.PaymentTransaction;
 import com.eventer.paymentservice.domain.PaymentType;
-import com.eventer.paymentservice.domain.User;
+import com.eventer.paymentservice.domain.Customer;
 import com.eventer.paymentservice.dto.ExternalPaymentRequestDTO;
 import com.eventer.paymentservice.dto.PaymentResponseDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class PaymentTransactionService {
     PaymentTransactionMapper paymentTransactionMapper;
 
     @Autowired
-    UserMapper userMapper;
+    CustomerMapper customerMapper;
 
 
     /**
@@ -37,14 +37,14 @@ public class PaymentTransactionService {
         //ako hocemo da proverimo da vec nije sniemljna ista transakcija
         PaymentStatus status = PaymentStatus.Created;
         String referenceNumber = request.getReferenceNumber();
-        User user = null;
+        Customer customer = null;
 
         if (referenceNumber == null || referenceNumber.isEmpty() || Pattern.matches("[0-9]{13}", referenceNumber)) {
             status = PaymentStatus.Cancelled;
         } else {
-            user = userMapper.findUserByIdentityNumber(request.getReferenceNumber());
+            customer = customerMapper.findCustomerByIdentityNumber(request.getReferenceNumber());
         }
-        if (user != null) {
+        if (customer != null) {
             status = PaymentStatus.Created;
         }
 
@@ -55,7 +55,7 @@ public class PaymentTransactionService {
                 .paymentType(PaymentType.Payin)
                 .provider("rendom banka upisi nesto")
                 .paymentStatus(status)
-                .user(user)
+                .customer(customer)
                 .build();
 
         paymentTransactionMapper.savePaymentTransaction(paymentRequest);

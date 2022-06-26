@@ -17,6 +17,6 @@
     </typeHandlers>
     <mappers>
         <mapper resource="db/com.eventer.paymentservice.dao.mapper/PaymentTransactionMapper.xml"/>
-        <mapper resource="db/com.eventer.paymentservice.dao.mapper/UserMapper.xml"/>
+        <mapper resource="db/com.eventer.paymentservice.dao.mapper/CustomerMapper.xml"/>
     </mappers>
 </configuration>
