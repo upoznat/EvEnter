@@ -5,7 +5,7 @@ import com.eventer.eventticket.amqp.rabbit.RequestSender;
 import com.eventer.eventticket.dao.mapper.TicketMapper;
 import com.eventer.eventticket.domain.Event;
 import com.eventer.eventticket.domain.Ticket;
-import com.eventer.eventticket.domain.Ticket.TicketStatus;
+import com.eventer.eventticket.domain.TicketStatus;
 import com.eventer.eventticket.dto.BuyTicketRequest;
 import com.eventer.eventticket.dto.TicketWalletResponse;
 import com.eventer.eventticket.dto.WalletRequest;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.eventer.eventticket.domain.Ticket.TicketStatus.*;
-import static com.eventer.eventticket.domain.Ticket.TicketStatus.Created;
-import static com.eventer.eventticket.domain.Ticket.TicketStatus.Reserved;
+import static com.eventer.eventticket.domain.TicketStatus.*;
+import static com.eventer.eventticket.domain.TicketStatus.Created;
+import static com.eventer.eventticket.domain.TicketStatus.Reserved;
 import static com.eventer.eventticket.dto.Status.*;
 import static com.eventer.eventticket.exception.ApplicationException.ErrorType.IRREGULAR_RESPONSE;
 

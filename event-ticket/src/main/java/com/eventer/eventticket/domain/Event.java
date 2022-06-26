@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(EventListener.class)
 public class Event {
 
@@ -29,9 +30,5 @@ public class Event {
     private Integer availableTickets;
     private EventStatus status;
 
-    public enum EventStatus {
-        Active,
-        SoldOut,
-        Canceled;
-    }
+
 }

@@ -50,22 +50,22 @@ databaseChangeLog:
                 available_tickets integer not null,
                 status varchar(20) not null,
 
-                CONSTRAINT PK_payment_transaction PRIMARY KEY (id)
+                CONSTRAINT PK_EVENT PRIMARY KEY (id)
                 );
 
-                comment on column payment_transaction.id is 'Jedinstveni id zahteva';
-                comment on column payment_transaction.name is 'Naziv dogadjaja';
-                comment on column payment_transaction.location is 'Adresa lokacije';
-                comment on column payment_transaction.location is 'Lokacija dogadjaja';
-                comment on column payment_transaction.date_created is 'Datum incijalnog snimanja zahteva';
-                comment on column payment_transaction.date_modified is 'Datum poslednje izmene';
-                comment on column payment_transaction.start_date is 'Datum održavanja dogadjaja';
-                comment on column payment_transaction.total_capacity is 'Ukupan broj karata za dogadjaj';
-                comment on column payment_transaction.available_tickets is 'Broj raspolozivih karata';
-                comment on column payment_transaction.status is 'Status dogadjaja';
+                comment on column event.id is 'Jedinstveni id zahteva';
+                comment on column event.name is 'Naziv dogadjaja';
+                comment on column event.location is 'Adresa lokacije';
+                comment on column event.location is 'Lokacija dogadjaja';
+                comment on column event.date_created is 'Datum incijalnog snimanja zahteva';
+                comment on column event.date_modified is 'Datum poslednje izmene';
+                comment on column event.start_date is 'Datum održavanja dogadjaja';
+                comment on column event.total_capacity is 'Ukupan broj karata za dogadjaj';
+                comment on column event.available_tickets is 'Broj raspolozivih karata';
+                comment on column event.status is 'Status dogadjaja';
 
 
-            CREATE TABLE ticket
+                CREATE TABLE ticket
                      (
                      id INTEGER NOT NULL,
                      date_created timestamp,
@@ -75,9 +75,9 @@ databaseChangeLog:
                      user_id number,
                      event_id number,
                      status varchar(20) not null,
-                     transaction_details,
+                     transaction_details varchar(20) not null,
 
-                     CONSTRAINT PK_payment_transaction PRIMARY KEY (id),
+                     CONSTRAINT PK_TICKET PRIMARY KEY (id),
                      constraint fk_user_id FOREIGN key(user_id) references user(id),
                      constraint fk_event_id FOREIGN key(event_id) references event(id)
                      );

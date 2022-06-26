@@ -5,15 +5,31 @@ spring:
   activemq:
     pool:
       enabled: true
-      
+  main:
+    allow-bean-definition-overriding: false
+  cloud:
+    config:
+      import-check:
+        enabled: false
+
 management.security.enabled: false
+
+
+datasource:
+  platform: oracle
+  url: jdbc:oracle:thin:@localhost:1521:XEPDB1
+  username: eventticket
+  password: eventticket!
 
 mybatis: 
   config-location: classpath:mybatis/mybatis-config.xml
 
-spring.main.allow-bean-definition-overriding: true
 
-logging.level.com.*.client: DEBUG
+logging:
+  level:
+    com:
+      .*:
+        client: DEBUG
 
 logbook:
   exclude:

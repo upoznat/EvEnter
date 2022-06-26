@@ -1,12 +1,10 @@
 package com.eventer.eventticket.dao.mapper;
 
 import com.eventer.eventticket.domain.Ticket;
-import com.eventer.eventticket.domain.Ticket.TicketStatus;
-import org.springframework.stereotype.Component;
+import com.eventer.eventticket.domain.TicketStatus;
 
 import java.util.List;
 
-@Component
 public interface TicketMapper {
 
     /**

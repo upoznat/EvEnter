@@ -2,6 +2,7 @@ package com.eventer.eventticket.entitylisteners;
 
 import com.eventer.eventticket.dao.mapper.EventMapper;
 import com.eventer.eventticket.domain.Event;
+import com.eventer.eventticket.domain.EventStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ public class EventListener {
     @PostUpdate
     public void postUpdate(Event event) {
         if (event.getAvailableTickets().equals(0)) {
-            event.setStatus(Event.EventStatus.SoldOut);
+            event.setStatus(EventStatus.SoldOut);
             mapper.updateEvent(event);
         }
     }

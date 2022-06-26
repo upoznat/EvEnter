@@ -31,14 +31,14 @@
         update ticket
         set date_modified = #{dateModified},
             user_id = #{userId},
-            status= #{status}
+            status = #{status}
         where id in #{ticketIds}
     </update>
 
     <select id="getTicketsForEventWithLock">
         select *
         from ticket
-        where event_id = #{eventId} and status='Created' and rownum <= #{numOfTickets}
+        where event_id = #{eventId} and status='Created' <!--and rownum<#{numOfTickets}-->
         order by id asc
         for update;
     </select>

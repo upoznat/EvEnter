@@ -9,8 +9,9 @@ import java.time.Instant;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ticket {
 
     private Long id;
@@ -24,12 +25,7 @@ public class Ticket {
     private String transactionDetails;
 
 
-public enum TicketStatus {
-    Created,
-    Reserved,
-    Purchased,
-    Deleted;
-}
+
 
     @PrePersist
     public void prePersist() {

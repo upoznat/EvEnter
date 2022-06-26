@@ -14,8 +14,8 @@
                      javaType="com.eventer.eventticket.domain.TicketStatus"/>
         <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
                      javaType="com.eventer.eventticket.domain.EventStatus"/>
-        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
-                     javaType="com.eventer.eventticket.domain.Status"/>
+        <!--typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="com.eventer.eventticket.domain.Status"/-->
     </typeHandlers>
     <mappers>
         <mapper resource="db/com.eventer.eventticket.dao.mapper/UserMapper.xml"/>
