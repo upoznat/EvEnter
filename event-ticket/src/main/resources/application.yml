@@ -15,11 +15,7 @@ spring:
 management.security.enabled: false
 
 
-datasource:
-  platform: oracle
-  url: jdbc:oracle:thin:@localhost:1521:XEPDB1
-  username: eventticket
-  password: eventticket!
+
 
 mybatis: 
   config-location: classpath:mybatis/mybatis-config.xml

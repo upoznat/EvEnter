@@ -18,7 +18,7 @@ public class BuyTicketRequest {
 
         @NotBlank
         @JsonProperty
-        private Long userId;
+        private Long customerId;
 
         @NotBlank
         @JsonProperty

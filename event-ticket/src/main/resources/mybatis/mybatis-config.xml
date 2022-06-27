@@ -18,7 +18,7 @@
                      javaType="com.eventer.eventticket.domain.Status"/-->
     </typeHandlers>
     <mappers>
-        <mapper resource="db/com.eventer.eventticket.dao.mapper/UserMapper.xml"/>
+        <mapper resource="db/com.eventer.eventticket.dao.mapper/CustomerMapper.xml"/>
         <mapper resource="db/com.eventer.eventticket.dao.mapper/EventMapper.xml"/>
         <mapper resource="db/com.eventer.eventticket.dao.mapper/TicketMapper.xml"/>
     </mappers>

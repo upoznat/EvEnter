@@ -67,11 +67,11 @@ public class TicketService {
             double sum = totalTicketSum(ticketsForReserve);
 
             //azurirana karta na reserved kako niko drugi ne bi mogao da je kupi dok ne prodje placanje
-            ticketMapper.updateTickets(ticketIds, request.getUserId(), Reserved);
+            ticketMapper.updateTickets(ticketIds, request.getCustomerId(), Reserved);
 
             //poslat zahtev za kupovinom
             WalletRequest walletRequest = WalletRequest.builder()
-                    .userId(request.getUserId())
+                    .customerId(request.getCustomerId())
                     .amount(sum)
                     .ticketIds(ticketIds)
                     .type(reqType).build();
@@ -106,7 +106,7 @@ public class TicketService {
             log.error("Vracen neočekivani odgovor: {}", response);
             throw new EventTicketProcessingException(IRREGULAR_RESPONSE);
         }
-        ticketMapper.updateTickets(response.getTicketIds(), response.getUserId(), status);
+        ticketMapper.updateTickets(response.getTicketIds(), response.getCustomerId(), status);
     }
 
     private double totalTicketSum(List<Ticket> ticketsForReserve) {

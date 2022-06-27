@@ -25,7 +25,7 @@ public class TicketWalletResponse {
     private List<Long> ticketIds;
 
     @JsonProperty
-    private Long userId;
+    private Long customerId;
 
     @JsonProperty
     private TicketWalletType type;

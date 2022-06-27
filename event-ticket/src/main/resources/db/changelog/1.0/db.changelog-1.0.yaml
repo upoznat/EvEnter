@@ -15,11 +15,11 @@ databaseChangeLog:
           strip-comments: true
           sql: |
 
-                create sequence seq_users start with 1 increment by 1;
+                create sequence seq_customers start with 1 increment by 1;
                 create sequence seq_event start with 1 increment by 1;
                 create sequence seq_ticket start with 1 increment by 1;
 
-                create table user (
+                create table customer (
                 id number not null,
                 username varchar(20) not null,
                 password varchar(200) not null,
@@ -30,12 +30,12 @@ databaseChangeLog:
                 registration_date timestamp not null,
                 email varchar(40),
                 status varchar(20) not null,
-                CONSTRAINT PK_USER PRIMARY KEY (id)
+                CONSTRAINT PK_CUSTOMER PRIMARY KEY (id)
                 );
 
-                comment on column user.id is 'Jedinstveni id korisnika u sistemu';
-                comment on column user.username is 'Username korisnika';
-                comment on column user.identity_number is 'JMBG korisnika';
+                comment on column customer.id is 'Jedinstveni id korisnika u sistemu';
+                comment on column customer.username is 'Username korisnika';
+                comment on column customer.identity_number is 'JMBG korisnika';
 
                 CREATE TABLE event
                 (
@@ -72,13 +72,13 @@ databaseChangeLog:
                      date_modified timestamp,
                      start_date timestamp not null,
                      price number not null,
-                     user_id number,
+                     customer_id number,
                      event_id number,
                      status varchar(20) not null,
                      transaction_details varchar(20) not null,
 
                      CONSTRAINT PK_TICKET PRIMARY KEY (id),
-                     constraint fk_user_id FOREIGN key(user_id) references user(id),
+                     constraint fk_customer_id FOREIGN key(customer_id) references customer(id),
                      constraint fk_event_id FOREIGN key(event_id) references event(id)
                      );
 
@@ -87,7 +87,7 @@ databaseChangeLog:
                      comment on column ticket.date_modified is 'Datum poslednje izmene';
                      comment on column ticket.start_date is 'Datum odrzavanja dogadjaja';
                      comment on column ticket.price is 'Cena ulaznice';
-                     comment on column ticket.user_id is 'Id korisnika koji je kupio kartu';
+                     comment on column ticket.customer_id is 'Id korisnika koji je kupio kartu';
                      comment on column ticket.event_id is 'Id dogadjaja za koji se kupuje ulaznica';
                      comment on column ticket.status is 'Status ulaznice';
                      comment on column ticket.transaction_details is 'Podaci o transakciji - kupovine karte';

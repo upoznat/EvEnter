@@ -4,8 +4,22 @@
 
 	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+	<property name="LOG_FILE" value="/var/log/${app.name}/${app.name}.log"/>
 
-	<springProfile name="development,production">
+	<springProperty scope="context" name="app.name" source="spring.application.name"
+					defaultValue="app"/>
+	<springProperty scope="context" name="LOG_PATH" source="logging.file"
+					defaultValue="${LOG_FILE}"/>
+	<contextName>${HOSTNAME}</contextName>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<springProfile name="development, production">
 		<appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
 			<file>${LOG_FILE}</file>
 
@@ -26,7 +40,7 @@
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
 
-		<springProfile name="integration,staging,production">
+		<springProfile name="integration, production">
 			<appender-ref ref="ROLLING_FILE_APPENDER" />
 		</springProfile>
 	</root>

@@ -20,7 +20,7 @@ public class Ticket {
     private Instant startDate;
     private Double price;
     private Event event;
-    private User user;
+    private Customer customer;
     private TicketStatus status;
     private String transactionDetails;
 

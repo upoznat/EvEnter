@@ -9,7 +9,7 @@
         <result property="startDate" column="start_date" />
         <result property="price" column="price" />
         <result property="event.id" column="event_id" />
-        <result property="user.id" column="user_id" />
+        <result property="customer.id" column="customer_id" />
         <result property="status" column="status" />
         <result property="transactionDetails" column="transaction_details" />
     </resultMap>
@@ -21,16 +21,16 @@
             seq_ticket.nextval from dual
         </selectKey>
         insert into ticket
-        (id, date_created, date_modified, start_date, price, user_id, event_id, status, transaction_details)
+        (id, date_created, date_modified, start_date, price, customer_id, event_id, status, transaction_details)
         values
-        (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{price}, #{event.id}, #{user.id}, #{status},
+        (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{price}, #{event.id}, #{customer.id}, #{status},
         #{transactionDetails})
     </insert>
 
     <update id="updateTickets">
         update ticket
         set date_modified = #{dateModified},
-            user_id = #{userId},
+            customer_id = #{customerId},
             status = #{status}
         where id in #{ticketIds}
     </update>
@@ -46,7 +46,7 @@
 
 <!--    <select id="findPaymentTransaction" parameterType="PaymentTransactionRequest" resultMap="paymentTransaction">-->
 <!--        select * from payment_transaction-->
-<!--        where user_id = #{userId}-->
+<!--        where customer_id = #{customerId}-->
 <!--          and uuid = #{uuid}-->
 <!--    </select>-->
 

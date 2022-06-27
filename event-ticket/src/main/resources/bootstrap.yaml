@@ -1,7 +1,6 @@
 server:
-  #  context-path: /${spring.application.name}
   servlet:
-  context-path: /event-ticket
+  context-path: /${spring.application.name}
   port: 8881
 
 spring:
@@ -20,6 +19,6 @@ spring:
 #        max-interval: 500
 #        multiplier: 1.0
 
-logging:
-  file: /var/log/${spring.application.name}.log
+#logging:
+#  file: /var/log/${spring.application.name}.log
 

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.amqp.core.*;
 
-import static com.eventer.eventticket.amqp.Queues.WALLET_BUY_TICKET_REQUEST_QUEUE;
+import static com.eventer.eventticket.amqp.Queues.*;
 import static com.eventer.eventticket.amqp.rabbit.Exchanges.WALLET_EXCHANGE;
 
 @Configuration
@@ -26,9 +26,25 @@ public class MessagingConfiguration {
     RabbitMQProperties properties;
 
     @Bean
-    Queue buyTicketQueue() {
+    Queue buyTicketRequestQueue() {
         return new Queue(WALLET_BUY_TICKET_REQUEST_QUEUE, false);
     }
+
+    @Bean
+    Queue buyTicketResponseQueue() {
+        return new Queue(WALLET_BUY_TICKET_RESPONSE_QUEUE, false);
+    }
+    @Bean
+     Queue cancelTicketRequestQueue() {
+
+        return new Queue(WALLET_CANCEL_TICKET_REQUEST_QUEUE, false);
+    }
+
+    @Bean
+    Queue cancelTicketResponseQueue() {
+        return new Queue(WALLET_CANCEL_TICKET_RESPONSE_QUEUE, false);
+    }
+
 
     @Bean
     FanoutExchange exchange() {
@@ -36,9 +52,24 @@ public class MessagingConfiguration {
     }
 
     @Bean
-    Binding binding(Queue queue, FanoutExchange  exchange) {
-        return BindingBuilder.bind(queue).to(exchange);
+    Binding bindingTicketRequest(FanoutExchange  exchange) {
+        return BindingBuilder.bind(buyTicketRequestQueue()).to(exchange);
     }
+
+    @Bean
+    Binding bindingTicketResponse(FanoutExchange  exchange) {
+        return BindingBuilder.bind(buyTicketResponseQueue()).to(exchange);
+    }
+    @Bean
+    Binding bindingCancelRequest(FanoutExchange  exchange) {
+        return BindingBuilder.bind(cancelTicketRequestQueue()).to(exchange);
+    }
+
+    @Bean
+    Binding bindingCancelResponse(FanoutExchange  exchange) {
+        return BindingBuilder.bind(cancelTicketResponseQueue()).to(exchange);
+    }
+
 
 
     @Bean

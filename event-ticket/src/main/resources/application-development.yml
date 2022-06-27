@@ -7,6 +7,11 @@ spring:
   cloud:
     discovery:
       enabled: false
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: eventticket
+    password: eventticket!
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml

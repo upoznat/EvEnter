@@ -1,7 +1,7 @@
 package com.eventer.eventticket.dao.mapper;
 
+import com.eventer.eventticket.domain.Customer;
 import com.eventer.eventticket.domain.Event;
-import com.eventer.eventticket.domain.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,6 +36,6 @@ public interface EventMapper {
      * @param id
      * @return
      */
-    User findEvent(Long id);
+    Customer findEvent(Long id);
 
 }

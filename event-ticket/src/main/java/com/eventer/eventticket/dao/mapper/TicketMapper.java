@@ -19,7 +19,7 @@ public interface TicketMapper {
      *
      * @param ticketIds - idjevi dokumenata koji se azuriraju
      */
-    void updateTickets(List<Long> ticketIds, Long userId, TicketStatus status);
+    void updateTickets(List<Long> ticketIds, Long customerId, TicketStatus status);
 
     /**
      * Azurira podatke o ulaznici
