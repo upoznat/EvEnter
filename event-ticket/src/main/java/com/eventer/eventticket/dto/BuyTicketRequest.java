@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -16,15 +17,15 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class BuyTicketRequest {
 
-        @NotBlank
+        @NotNull
         @JsonProperty
         private Long customerId;
 
-        @NotBlank
+        @NotNull
         @JsonProperty
         private Long eventId;
 
-        @NotBlank
+        @NotNull
         @JsonProperty
         private Integer numberOfTickets;
 

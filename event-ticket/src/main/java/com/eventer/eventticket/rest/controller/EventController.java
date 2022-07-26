@@ -11,30 +11,35 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @Slf4j
+@RequestMapping("/event")
 @RestController
 public class EventController {
 
     @Autowired
     EventService eventService;
 
-    @PostMapping("createEvent")
+    @PostMapping("create")
     public CreateEventResponse createEvent(@Valid @RequestBody EventDTO newEventRequest){
 
         try {
             Event event = eventService.persistEventInfo(newEventRequest);
-            return CreateEventResponse.builder().status(Status.SUCCESS).eventId(event.getId())
-                    .details("").build();
+            return CreateEventResponse.builder()
+                    .status(Status.SUCCESS)
+                    .eventId(event.getId())
+                    .details("")
+                    .build();
 
         } catch (EventTicketProcessingException e) {
             return CreateEventResponse
                     .builder()
                     .status(Status.FAIL)
-                    .details(e.getErrorType().name())
+                    .details(e.getMessage())
                     .build();
         }
     }

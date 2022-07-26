@@ -36,6 +36,6 @@ public interface EventMapper {
      * @param id
      * @return
      */
-    Customer findEvent(Long id);
+    Event findEvent(Long id);
 
 }

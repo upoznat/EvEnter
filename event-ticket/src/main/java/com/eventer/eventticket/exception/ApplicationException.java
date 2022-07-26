@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApplicationException extends RuntimeException{
+public class ApplicationException extends RuntimeException {
 
 	private static final long serialVersionUID = -1324036379770825489L;
 
@@ -49,9 +49,20 @@ public class ApplicationException extends RuntimeException{
 		this.errorType = errorType;
 	}
 
+
 	public enum ErrorType {
+
+		CUSTOMER_ALREADY_EXISTS("Korisnik sa ovim korisnickim imenom ili imejlom vec postoji"),
 		NO_CUSTOMER_FOR_PARAMETERS("Ne postoji korisnik za prosledjene parametre"),
-		IRREGULAR_RESPONSE("Dobijen neočekivani odgovor");
+		BAD_CREDENTIALS("Nije dobro korisnicko ime ili lozinka"),
+		IRREGULAR_RESPONSE("Dobijen neočekivani odgovor"),
+
+		TICKET_RESERVATION_ERROR("Neuspesna rezervacija karata"),
+
+		TICKET_WALLET_REPONSE_RESERVATION_ERROR("Neuspesna razresenje rezervacije po odgovoru sa Walleta");
+
+
+
 
 		private ErrorType(String description) {
 			this.description = description;
@@ -59,6 +70,10 @@ public class ApplicationException extends RuntimeException{
 		}
 
 		private final String description;
+
+		public String getDescription() {
+			return description;
+		}
 	}
 
 }

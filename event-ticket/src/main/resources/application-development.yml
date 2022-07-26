@@ -12,6 +12,8 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: eventticket
     password: eventticket!
+  liquibase:
+    enabled: true
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
@@ -24,8 +26,10 @@ management:
   endpoints:
     jmx:
       domain: ${spring.application.name}
+    security:
+      enabled: false
 
-management.security.enabled: false
+#management.security.enabled: false
 
 security:
   basic:

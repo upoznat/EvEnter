@@ -8,59 +8,62 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.ws.rs.Path;
 import java.util.List;
 
 import static com.eventer.eventticket.utils.TicketWalletType.BUY;
 import static com.eventer.eventticket.utils.TicketWalletType.CANCEL;
 
 @Slf4j
+@RequestMapping("/ticket")
 @RestController
 public class TicketController {
 
     @Autowired
     TicketService ticketService;
 
-    @PostMapping("reserveTicket")
-    public TicketWalletResponse buyTicket(@Valid @RequestBody BuyTicketRequest request){
+    @PostMapping("reserve")
+    public CustomResponse buyTicket(@Valid @RequestBody BuyTicketRequest request){
 
         try {
             //rezervisane karte
             List<Long> tickets = ticketService.reserveTickets(request, BUY);
 
-            return TicketWalletResponse.builder()
+            return CustomResponse.builder()
                     .status(Status.SUCCESS)
-                    .ticketIds(tickets)
-                    .details("").build();
+                    .details("Rezervisane karte sa sledecim idjevima: "+ tickets)
+                    .build();
 
         } catch (EventTicketProcessingException e) {
-            return TicketWalletResponse
+            return CustomResponse
                     .builder()
                     .status(Status.FAIL)
-                    .details(e.getErrorType().name())
+                    .details(e.getErrorType().getDescription())
                     .build();
         }
     }
 
     @PostMapping("cancelTicket")
-    public TicketWalletResponse cancelTicket(@Valid @RequestBody BuyTicketRequest request){
+    public CustomResponse cancelTicket(@Valid @RequestBody BuyTicketRequest request){
 
         try {
             //rezervisane karte
             List<Long> tickets = ticketService.reserveTickets(request, CANCEL);
 
-            return TicketWalletResponse.builder()
+            return CustomResponse.builder()
                     .status(Status.SUCCESS)
-                    .ticketIds(tickets)
-                    .details("").build();
+                    .details("Otkazane su karte sa sledecim idjevima: "+ tickets)
+                    .build();
 
         } catch (EventTicketProcessingException e) {
-            return TicketWalletResponse
+            return CustomResponse
                     .builder()
                     .status(Status.FAIL)
-                    .details(e.getErrorType().name())
+                    .details(e.getErrorType().getDescription())
                     .build();
         }
     }

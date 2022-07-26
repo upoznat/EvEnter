@@ -25,6 +25,7 @@ import static com.eventer.eventticket.domain.TicketStatus.Created;
 import static com.eventer.eventticket.domain.TicketStatus.Reserved;
 import static com.eventer.eventticket.dto.Status.*;
 import static com.eventer.eventticket.exception.ApplicationException.ErrorType.IRREGULAR_RESPONSE;
+import static com.eventer.eventticket.exception.ApplicationException.ErrorType.TICKET_RESERVATION_ERROR;
 
 @Service
 @Slf4j
@@ -36,8 +37,13 @@ public class TicketService {
     @Autowired
     RequestSender requestSender;
 
-    @Transactional
+   @Transactional
     public void createTicketsForEvent(Event eventInfo, Double price) {
+
+        //ukoliko nije prosledjena inicijalna cena pri kreiranja eventa, kreiramo samo event bez karata
+        if(price==null){
+            return;
+        }
 
         IntStream.range(0, eventInfo.getTotalCapacity())
                 .forEach(i -> {
@@ -45,16 +51,16 @@ public class TicketService {
                             .price(price)
                             .startDate(eventInfo.getStartDate())
                             .event(eventInfo)
-                            .status(Created).build());
+                            .status(Created)
+                            .build());
                 });
     }
 
-    @Transactional
     public void saveTicket(Ticket ticket) {
         try {
             ticketMapper.saveTicket(ticket);
         } catch (Exception e) {
-            throw new EventTicketProcessingException();
+            throw new EventTicketProcessingException(e);
         }
     }
 
@@ -67,7 +73,7 @@ public class TicketService {
             double sum = totalTicketSum(ticketsForReserve);
 
             //azurirana karta na reserved kako niko drugi ne bi mogao da je kupi dok ne prodje placanje
-            ticketMapper.updateTickets(ticketIds, request.getCustomerId(), Reserved);
+            ticketMapper.updateTicketsToStatus(ticketIds, request.getCustomerId(), null,  Reserved);
 
             //poslat zahtev za kupovinom
             WalletRequest walletRequest = WalletRequest.builder()
@@ -80,7 +86,7 @@ public class TicketService {
 
             return ticketIds;
         } catch (Exception e) {
-            throw new EventTicketProcessingException();
+            throw new EventTicketProcessingException(TICKET_RESERVATION_ERROR);
         }
     }
 
@@ -91,22 +97,22 @@ public class TicketService {
 
         if (SUCCESS.equals(response.getStatus())) {
             if(TicketWalletType.BUY.equals(response.getType())){
-                status = Created;
-            } else {
                 status = Purchased;
+            } else {
+                status = Created;
             }
         } else if (FAIL.equals(response.getStatus())) {
             if(TicketWalletType.CANCEL.equals(response.getType())){
-                status = Purchased;
-            } else {
                 status = Created;
+            } else {
+                status = Purchased;
             }
             log.info("Neuspela akcija {} karte! Dobijen sledeći odgovor: {}", response.getType(), response);
         } else {
             log.error("Vracen neočekivani odgovor: {}", response);
             throw new EventTicketProcessingException(IRREGULAR_RESPONSE);
         }
-        ticketMapper.updateTickets(response.getTicketIds(), response.getCustomerId(), status);
+        ticketMapper.updateTicketsToStatus(response.getTicketIds(), response.getCustomerId(), response.getDetails(), status);
     }
 
     private double totalTicketSum(List<Ticket> ticketsForReserve) {
@@ -115,5 +121,6 @@ public class TicketService {
                 .reduce(0d, Double::sum)
                 .doubleValue();
     }
+
 
 }

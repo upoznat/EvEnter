@@ -1,6 +1,7 @@
 package com.eventer.eventticket.dao.mapper;
 
 import com.eventer.eventticket.domain.Customer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,10 +22,17 @@ public interface CustomerMapper {
 
     /**
      * Dohvata korisnika po prosledjenom id-u
-     * @param customer
      * @return
      */
-    Customer findCustomer(Customer customer);
+    Customer findCustomer(Long id);
+
+    /**
+     * Dohvata korisnika po prosledjenom identityNumbery
+     * @param username - korisnisko ime
+     * @param email - email adresa korisnika
+     * @return vraca korisnika
+     */
+    Customer findCustomerByUsernameOrEmail(@Param("username") String username, @Param("email") String email);
 
     /**
      * Dohvata korisnika po prosledjenom identityNumbery

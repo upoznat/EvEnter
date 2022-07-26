@@ -11,6 +11,8 @@ spring:
     config:
       import-check:
         enabled: false
+  profiles:
+    active: development
 
 management.security.enabled: false
 

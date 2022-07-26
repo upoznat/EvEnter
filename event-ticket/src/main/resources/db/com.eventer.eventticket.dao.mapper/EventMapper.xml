@@ -22,9 +22,9 @@
             seq_event.nextval from dual
         </selectKey>
         insert into event
-        (id, date_created, date_modified, start_date, total_capacity, available_tickets, status)
+        (id, name, location, address, date_created, date_modified, start_date, total_capacity, available_tickets, status)
         values
-        (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{totalCapacity}, #{availableTickets}, #{status})
+        (#{id}, #{name}, #{location}, #{address}, sysdate, sysdate, #{startDate}, #{totalCapacity}, #{availableTickets}, #{status})
     </insert>
 
     <update id="updateEvent" parameterType="Event">

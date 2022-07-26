@@ -13,9 +13,11 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCustomerResponse extends CustomResponse {
+public class CustomResponse implements Serializable {
 
     @JsonProperty
-    Long customerId;
+    Status status;
 
+    @JsonProperty
+    String details;
 }

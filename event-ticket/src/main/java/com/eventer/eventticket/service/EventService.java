@@ -24,12 +24,14 @@ public class EventService {
     public Event persistEventInfo(EventDTO eventInfo){
 
         Event event = Event.builder()
+                .name(eventInfo.getName())
                 .location(eventInfo.getLocation())
                 .address(eventInfo.getAddress())
+                .startDate(eventInfo.getStartDate())
                 .totalCapacity(eventInfo.getTotalCapacity())
                 .availableTickets(eventInfo.getTotalCapacity())
-                .name(eventInfo.getName())
-                .status(Active).build();
+                .status(Active)
+                .build();
 
 
         eventMapper.saveEvent(event);
@@ -38,4 +40,28 @@ public class EventService {
 
         return event;
     }
+
+
+//    public Event updateEventInfo(EventDTO eventInfo){
+//
+//        Event event = eventMapper.findEvent(eventInfo.getId());
+//
+//        Event updatedEvent = Event.builder()
+//                .name(eventInfo.getName())
+//                .location(eventInfo.getLocation())
+//                .address(eventInfo.getAddress())
+//                .build();
+//
+//        if(eventInfo.getTotalCapacity()>(event.getTotalCapacity()){
+//            ticketService.createTicketsForEvent(updatedEvent, eventInfo.getTicketPrice());
+//        }
+//
+//        eventMapper.saveEvent(updatedEvent);
+//
+//        ticketService.createTicketsForEvent(updatedEvent, eventInfo.getTicketPrice());
+//
+//        return event;
+//    }
+
+
 }

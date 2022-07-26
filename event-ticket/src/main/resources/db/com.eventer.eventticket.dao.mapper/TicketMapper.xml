@@ -21,26 +21,30 @@
             seq_ticket.nextval from dual
         </selectKey>
         insert into ticket
-        (id, date_created, date_modified, start_date, price, customer_id, event_id, status, transaction_details)
+        (id, date_created, date_modified, start_date, price, event_id, status)
         values
-        (#{id}, #{dateCreated}, #{dateModified}, #{startDate}, #{price}, #{event.id}, #{customer.id}, #{status},
-        #{transactionDetails})
+        (#{id}, sysdate, sysdate, #{startDate}, #{price}, #{event.id}, #{status})
     </insert>
 
-    <update id="updateTickets">
+    <update id="updateTicketsToStatus">
         update ticket
-        set date_modified = #{dateModified},
+        set date_modified = sysdate,
             customer_id = #{customerId},
             status = #{status}
-        where id in #{ticketIds}
+        <if test="details != null">, transaction_details = #{details} </if>
+        where id in
+        <foreach item="item" collection="ticketIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </update>
 
-    <select id="getTicketsForEventWithLock">
+    <select id="getTicketsForEventWithLock" resultMap="ticket">
         select *
         from ticket
-        where event_id = #{eventId} and status='Created' <!--and rownum<#{numOfTickets}-->
+        where event_id = #{eventId} and
+              status='Created' and rownum &lt;= #{numOfTickets}
         order by id asc
-        for update;
+        for update
     </select>
 
 
